@@ -26,10 +26,22 @@ namespace MagicSR
         {
             lsb_SearchResult.Items.Clear();
             lv_SearchFiles.Items.Clear();
-            SearchPath(tb_Path.Text, cbb_FileMatch.Text, cbb_Query.Text,lv_SearchFiles,lsb_SearchResult);
 
-            if (lv_SearchFiles.Items.Count == 0)
-                MessageBox.Show("Find Nothing");
+            FindArgument findArgu = new FindArgument();
+            findArgu.Path = tb_Path.Text;
+            findArgu.FileFilter = cbb_FileMatch.Text;
+            findArgu.SearchStr = cbb_Query.Text;
+            findArgu.CountListBox = lsb_SearchResult;
+            findArgu.CountListView = lv_SearchFiles;
+
+            lsb_SearchResult.Enabled = false;
+            lv_SearchFiles.Enabled = false;
+            bgw_Find.RunWorkerAsync(findArgu);
+            
+            //SearchPath(tb_Path.Text, cbb_FileMatch.Text, cbb_Query.Text,lv_SearchFiles,lsb_SearchResult);
+
+            //if (lv_SearchFiles.Items.Count == 0)
+            //    MessageBox.Show("Find Nothing");
         }
 
         private void SearchPath(string Path, string fileExt, string findStr,ListView lv_Result,ListBox lsb_Result)
@@ -66,6 +78,7 @@ namespace MagicSR
 
         private bool SearchFile(string fileName, string findStr,ref int findCount,ListBox lsb_Result)
         {
+            bgw_Find.ReportProgress(0, fileName);
             StreamReader sr = new StreamReader(fileName);
 
             string line;
@@ -254,6 +267,42 @@ namespace MagicSR
         {
             AboutBox1 about = new AboutBox1();
             about.ShowDialog();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            FindArgument findArgu = e.Argument as FindArgument;
+
+            SearchPath(findArgu.Path, findArgu.FileFilter, findArgu.SearchStr, findArgu.CountListView, findArgu.CountListBox);
+            e.Result = "Succed";
+
+            tssStatus.Text = "Find,Please Waiting....";
+        }
+
+        private void bgw_Find_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            string Msg = e.UserState as string;
+            tssStatus.Text = Msg;
+        }
+
+        private void bgw_Find_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if(e.Result=="Succed")
+                tssStatus.Text = "Find finished";
+
+            if (e.Cancelled)
+                tssStatus.Text = "Cancelled";
+
+            lsb_SearchResult.Enabled = true;
+            lv_SearchFiles.Enabled = true;
+
+            toolStripStatusLabel1.Text = "Find " + lv_SearchFiles.Items.Count + " Files";
+        }
+
+        private void btn_CancelFind_Click(object sender, EventArgs e)
+        {
+            if(bgw_Find.CancellationPending)
+                bgw_Find.CancelAsync();
         }
     }
 }
