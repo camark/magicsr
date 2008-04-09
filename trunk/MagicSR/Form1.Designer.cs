@@ -31,6 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chk_SearchInResult = new System.Windows.Forms.CheckBox();
             this.chb_WholeWord = new System.Windows.Forms.CheckBox();
@@ -55,28 +57,31 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tb_SR_Search = new System.Windows.Forms.TextBox();
-            this.lbl_TxtReplace = new System.Windows.Forms.Label();
-            this.tb_SR_Replace = new System.Windows.Forms.TextBox();
-            this.rb_Modify_None = new System.Windows.Forms.RadioButton();
-            this.rb_Modify_Replace = new System.Windows.Forms.RadioButton();
+            this.btn_SR_Replace = new System.Windows.Forms.Button();
+            this.btn_SR_Search = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lv_SR_SearchResult = new System.Windows.Forms.ListView();
-            this.lsb_SR_FileList = new System.Windows.Forms.ListBox();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            this.btn_SR_Search = new System.Windows.Forms.Button();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_SR_Replace = new System.Windows.Forms.Button();
-            this.chk_SearchSubFolder = new System.Windows.Forms.CheckBox();
+            this.lsb_SR_FileList = new System.Windows.Forms.ListBox();
+            this.tb_SR_Replace = new System.Windows.Forms.TextBox();
+            this.lbl_TxtReplace = new System.Windows.Forms.Label();
+            this.tb_SR_Search = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rb_Modify_Replace = new System.Windows.Forms.RadioButton();
+            this.rb_Modify_None = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.chk_CreateBackup = new System.Windows.Forms.CheckBox();
+            this.chk_SearchSubFolder = new System.Windows.Forms.CheckBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.bgw_Find = new System.ComponentModel.BackgroundWorker();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btn_CancelFind = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -86,11 +91,12 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -100,7 +106,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(588, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(630, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -115,9 +121,24 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -219,7 +240,7 @@
             this.panel2.Controls.Add(this.tabControl1);
             this.panel2.Location = new System.Drawing.Point(0, 134);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(587, 394);
+            this.panel2.Size = new System.Drawing.Size(629, 441);
             this.panel2.TabIndex = 2;
             // 
             // tabControl1
@@ -233,11 +254,12 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(588, 391);
+            this.tabControl1.Size = new System.Drawing.Size(630, 445);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_CancelFind);
             this.tabPage1.Controls.Add(this.rb_Single);
             this.tabPage1.Controls.Add(this.splitContainer1);
             this.tabPage1.Controls.Add(this.button1);
@@ -247,7 +269,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(580, 365);
+            this.tabPage1.Size = new System.Drawing.Size(622, 419);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Find";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -280,8 +302,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lsb_SearchResult);
-            this.splitContainer1.Size = new System.Drawing.Size(573, 262);
-            this.splitContainer1.SplitterDistance = 90;
+            this.splitContainer1.Size = new System.Drawing.Size(615, 316);
+            this.splitContainer1.SplitterDistance = 108;
             this.splitContainer1.TabIndex = 4;
             // 
             // lv_SearchFiles
@@ -296,7 +318,7 @@
             this.lv_SearchFiles.FullRowSelect = true;
             this.lv_SearchFiles.Location = new System.Drawing.Point(5, 6);
             this.lv_SearchFiles.Name = "lv_SearchFiles";
-            this.lv_SearchFiles.Size = new System.Drawing.Size(567, 81);
+            this.lv_SearchFiles.Size = new System.Drawing.Size(609, 99);
             this.lv_SearchFiles.TabIndex = 0;
             this.lv_SearchFiles.UseCompatibleStateImageBehavior = false;
             this.lv_SearchFiles.View = System.Windows.Forms.View.Details;
@@ -325,7 +347,7 @@
             this.lsb_SearchResult.HorizontalScrollbar = true;
             this.lsb_SearchResult.Location = new System.Drawing.Point(5, 3);
             this.lsb_SearchResult.Name = "lsb_SearchResult";
-            this.lsb_SearchResult.Size = new System.Drawing.Size(566, 160);
+            this.lsb_SearchResult.Size = new System.Drawing.Size(608, 186);
             this.lsb_SearchResult.TabIndex = 0;
             this.lsb_SearchResult.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsb_SearchResult_DrawItem);
             this.lsb_SearchResult.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lsb_SearchResult_MeasureItem);
@@ -381,99 +403,31 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(580, 365);
+            this.tabPage2.Size = new System.Drawing.Size(622, 419);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Replace";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // btn_SR_Replace
             // 
-            this.tabPage3.Controls.Add(this.chk_CreateBackup);
-            this.tabPage3.Controls.Add(this.chk_SearchSubFolder);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(580, 365);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Option";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.btn_SR_Replace.Enabled = false;
+            this.btn_SR_Replace.Location = new System.Drawing.Point(497, 98);
+            this.btn_SR_Replace.Name = "btn_SR_Replace";
+            this.btn_SR_Replace.Size = new System.Drawing.Size(75, 23);
+            this.btn_SR_Replace.TabIndex = 8;
+            this.btn_SR_Replace.Text = "Replace";
+            this.btn_SR_Replace.UseVisualStyleBackColor = true;
+            this.btn_SR_Replace.Click += new System.EventHandler(this.btn_SR_Replace_Click);
             // 
-            // groupBox1
+            // btn_SR_Search
             // 
-            this.groupBox1.Location = new System.Drawing.Point(13, 13);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(199, 47);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search Option";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rb_Modify_Replace);
-            this.groupBox2.Controls.Add(this.rb_Modify_None);
-            this.groupBox2.Location = new System.Drawing.Point(262, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(304, 47);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Modify Option";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 70);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Text Search:";
-            // 
-            // tb_SR_Search
-            // 
-            this.tb_SR_Search.Location = new System.Drawing.Point(93, 66);
-            this.tb_SR_Search.Name = "tb_SR_Search";
-            this.tb_SR_Search.Size = new System.Drawing.Size(398, 20);
-            this.tb_SR_Search.TabIndex = 3;
-            // 
-            // lbl_TxtReplace
-            // 
-            this.lbl_TxtReplace.AutoSize = true;
-            this.lbl_TxtReplace.Enabled = false;
-            this.lbl_TxtReplace.Location = new System.Drawing.Point(13, 104);
-            this.lbl_TxtReplace.Name = "lbl_TxtReplace";
-            this.lbl_TxtReplace.Size = new System.Drawing.Size(74, 13);
-            this.lbl_TxtReplace.TabIndex = 4;
-            this.lbl_TxtReplace.Text = "Text Replace:";
-            // 
-            // tb_SR_Replace
-            // 
-            this.tb_SR_Replace.Enabled = false;
-            this.tb_SR_Replace.Location = new System.Drawing.Point(93, 101);
-            this.tb_SR_Replace.Name = "tb_SR_Replace";
-            this.tb_SR_Replace.Size = new System.Drawing.Size(398, 20);
-            this.tb_SR_Replace.TabIndex = 5;
-            // 
-            // rb_Modify_None
-            // 
-            this.rb_Modify_None.AutoSize = true;
-            this.rb_Modify_None.Checked = true;
-            this.rb_Modify_None.Location = new System.Drawing.Point(12, 19);
-            this.rb_Modify_None.Name = "rb_Modify_None";
-            this.rb_Modify_None.Size = new System.Drawing.Size(51, 17);
-            this.rb_Modify_None.TabIndex = 0;
-            this.rb_Modify_None.TabStop = true;
-            this.rb_Modify_None.Text = "None";
-            this.rb_Modify_None.UseVisualStyleBackColor = true;
-            // 
-            // rb_Modify_Replace
-            // 
-            this.rb_Modify_Replace.AutoSize = true;
-            this.rb_Modify_Replace.Location = new System.Drawing.Point(75, 19);
-            this.rb_Modify_Replace.Name = "rb_Modify_Replace";
-            this.rb_Modify_Replace.Size = new System.Drawing.Size(65, 17);
-            this.rb_Modify_Replace.TabIndex = 1;
-            this.rb_Modify_Replace.Text = "Replace";
-            this.rb_Modify_Replace.UseVisualStyleBackColor = true;
-            this.rb_Modify_Replace.CheckedChanged += new System.EventHandler(this.rb_Modify_Replace_CheckedChanged);
+            this.btn_SR_Search.Location = new System.Drawing.Point(497, 63);
+            this.btn_SR_Search.Name = "btn_SR_Search";
+            this.btn_SR_Search.Size = new System.Drawing.Size(75, 23);
+            this.btn_SR_Search.TabIndex = 7;
+            this.btn_SR_Search.Text = "Search";
+            this.btn_SR_Search.UseVisualStyleBackColor = true;
+            this.btn_SR_Search.Click += new System.EventHandler(this.btn_SR_Search_Click);
             // 
             // splitContainer2
             // 
@@ -512,17 +466,6 @@
             this.lv_SR_SearchResult.UseCompatibleStateImageBehavior = false;
             this.lv_SR_SearchResult.View = System.Windows.Forms.View.Details;
             // 
-            // lsb_SR_FileList
-            // 
-            this.lsb_SR_FileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lsb_SR_FileList.FormattingEnabled = true;
-            this.lsb_SR_FileList.Location = new System.Drawing.Point(5, 5);
-            this.lsb_SR_FileList.Name = "lsb_SR_FileList";
-            this.lsb_SR_FileList.Size = new System.Drawing.Size(541, 121);
-            this.lsb_SR_FileList.TabIndex = 0;
-            // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "FileName";
@@ -538,41 +481,115 @@
             this.columnHeader6.Text = "FindCount";
             this.columnHeader6.Width = 450;
             // 
-            // btn_SR_Search
+            // lsb_SR_FileList
             // 
-            this.btn_SR_Search.Location = new System.Drawing.Point(497, 63);
-            this.btn_SR_Search.Name = "btn_SR_Search";
-            this.btn_SR_Search.Size = new System.Drawing.Size(75, 23);
-            this.btn_SR_Search.TabIndex = 7;
-            this.btn_SR_Search.Text = "Search";
-            this.btn_SR_Search.UseVisualStyleBackColor = true;
-            this.btn_SR_Search.Click += new System.EventHandler(this.btn_SR_Search_Click);
+            this.lsb_SR_FileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lsb_SR_FileList.FormattingEnabled = true;
+            this.lsb_SR_FileList.Location = new System.Drawing.Point(5, 5);
+            this.lsb_SR_FileList.Name = "lsb_SR_FileList";
+            this.lsb_SR_FileList.Size = new System.Drawing.Size(541, 121);
+            this.lsb_SR_FileList.TabIndex = 0;
             // 
-            // helpToolStripMenuItem
+            // tb_SR_Replace
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
+            this.tb_SR_Replace.Enabled = false;
+            this.tb_SR_Replace.Location = new System.Drawing.Point(93, 101);
+            this.tb_SR_Replace.Name = "tb_SR_Replace";
+            this.tb_SR_Replace.Size = new System.Drawing.Size(398, 20);
+            this.tb_SR_Replace.TabIndex = 5;
             // 
-            // aboutToolStripMenuItem
+            // lbl_TxtReplace
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.lbl_TxtReplace.AutoSize = true;
+            this.lbl_TxtReplace.Enabled = false;
+            this.lbl_TxtReplace.Location = new System.Drawing.Point(13, 104);
+            this.lbl_TxtReplace.Name = "lbl_TxtReplace";
+            this.lbl_TxtReplace.Size = new System.Drawing.Size(74, 13);
+            this.lbl_TxtReplace.TabIndex = 4;
+            this.lbl_TxtReplace.Text = "Text Replace:";
             // 
-            // btn_SR_Replace
+            // tb_SR_Search
             // 
-            this.btn_SR_Replace.Enabled = false;
-            this.btn_SR_Replace.Location = new System.Drawing.Point(497, 98);
-            this.btn_SR_Replace.Name = "btn_SR_Replace";
-            this.btn_SR_Replace.Size = new System.Drawing.Size(75, 23);
-            this.btn_SR_Replace.TabIndex = 8;
-            this.btn_SR_Replace.Text = "Replace";
-            this.btn_SR_Replace.UseVisualStyleBackColor = true;
-            this.btn_SR_Replace.Click += new System.EventHandler(this.btn_SR_Replace_Click);
+            this.tb_SR_Search.Location = new System.Drawing.Point(93, 66);
+            this.tb_SR_Search.Name = "tb_SR_Search";
+            this.tb_SR_Search.Size = new System.Drawing.Size(398, 20);
+            this.tb_SR_Search.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 70);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Text Search:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rb_Modify_Replace);
+            this.groupBox2.Controls.Add(this.rb_Modify_None);
+            this.groupBox2.Location = new System.Drawing.Point(262, 13);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(304, 47);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Modify Option";
+            // 
+            // rb_Modify_Replace
+            // 
+            this.rb_Modify_Replace.AutoSize = true;
+            this.rb_Modify_Replace.Location = new System.Drawing.Point(75, 19);
+            this.rb_Modify_Replace.Name = "rb_Modify_Replace";
+            this.rb_Modify_Replace.Size = new System.Drawing.Size(65, 17);
+            this.rb_Modify_Replace.TabIndex = 1;
+            this.rb_Modify_Replace.Text = "Replace";
+            this.rb_Modify_Replace.UseVisualStyleBackColor = true;
+            this.rb_Modify_Replace.CheckedChanged += new System.EventHandler(this.rb_Modify_Replace_CheckedChanged);
+            // 
+            // rb_Modify_None
+            // 
+            this.rb_Modify_None.AutoSize = true;
+            this.rb_Modify_None.Checked = true;
+            this.rb_Modify_None.Location = new System.Drawing.Point(12, 19);
+            this.rb_Modify_None.Name = "rb_Modify_None";
+            this.rb_Modify_None.Size = new System.Drawing.Size(51, 17);
+            this.rb_Modify_None.TabIndex = 0;
+            this.rb_Modify_None.TabStop = true;
+            this.rb_Modify_None.Text = "None";
+            this.rb_Modify_None.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(13, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(199, 47);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search Option";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.chk_CreateBackup);
+            this.tabPage3.Controls.Add(this.chk_SearchSubFolder);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(622, 419);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Option";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // chk_CreateBackup
+            // 
+            this.chk_CreateBackup.AutoSize = true;
+            this.chk_CreateBackup.Location = new System.Drawing.Point(217, 19);
+            this.chk_CreateBackup.Name = "chk_CreateBackup";
+            this.chk_CreateBackup.Size = new System.Drawing.Size(174, 17);
+            this.chk_CreateBackup.TabIndex = 1;
+            this.chk_CreateBackup.Text = "Create Backup Before Replace";
+            this.chk_CreateBackup.UseVisualStyleBackColor = true;
             // 
             // chk_SearchSubFolder
             // 
@@ -586,21 +603,53 @@
             this.chk_SearchSubFolder.Text = "Search include SubFolder";
             this.chk_SearchSubFolder.UseVisualStyleBackColor = true;
             // 
-            // chk_CreateBackup
+            // statusStrip1
             // 
-            this.chk_CreateBackup.AutoSize = true;
-            this.chk_CreateBackup.Location = new System.Drawing.Point(217, 19);
-            this.chk_CreateBackup.Name = "chk_CreateBackup";
-            this.chk_CreateBackup.Size = new System.Drawing.Size(174, 17);
-            this.chk_CreateBackup.TabIndex = 1;
-            this.chk_CreateBackup.Text = "Create Backup Before Replace";
-            this.chk_CreateBackup.UseVisualStyleBackColor = true;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.tssStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 582);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(630, 22);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // bgw_Find
+            // 
+            this.bgw_Find.WorkerReportsProgress = true;
+            this.bgw_Find.WorkerSupportsCancellation = true;
+            this.bgw_Find.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.bgw_Find.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_Find_RunWorkerCompleted);
+            this.bgw_Find.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgw_Find_ProgressChanged);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 17);
+            this.toolStripStatusLabel1.Text = "Ready";
+            // 
+            // tssStatus
+            // 
+            this.tssStatus.Name = "tssStatus";
+            this.tssStatus.Size = new System.Drawing.Size(580, 17);
+            this.tssStatus.Spring = true;
+            // 
+            // btn_CancelFind
+            // 
+            this.btn_CancelFind.Location = new System.Drawing.Point(130, 70);
+            this.btn_CancelFind.Name = "btn_CancelFind";
+            this.btn_CancelFind.Size = new System.Drawing.Size(75, 23);
+            this.btn_CancelFind.TabIndex = 6;
+            this.btn_CancelFind.Text = "Cancel";
+            this.btn_CancelFind.UseVisualStyleBackColor = true;
+            this.btn_CancelFind.Click += new System.EventHandler(this.btn_CancelFind_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 526);
+            this.ClientSize = new System.Drawing.Size(630, 604);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -621,13 +670,15 @@
             this.splitContainer1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -684,6 +735,11 @@
         private System.Windows.Forms.Button btn_SR_Replace;
         private System.Windows.Forms.CheckBox chk_CreateBackup;
         private System.Windows.Forms.CheckBox chk_SearchSubFolder;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.ComponentModel.BackgroundWorker bgw_Find;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel tssStatus;
+        private System.Windows.Forms.Button btn_CancelFind;
     }
 }
 
